@@ -19,5 +19,14 @@ def cli():
     docs = extractor(input_dir, subdirs, extensions)
     markdown_list = parser(docs)
 
+    # Save markdown entries
+    for entry in markdown_list:
+        group_dir = os.path.join(output_dir, entry['group'])
+        if not os.path.exists(group_dir):
+            os.makedirs(group_dir);
+        
+        with open(os.path.join(group_dir, entry['filename']), 'w') as f:
+            f.write(entry['content'])
+
 if __name__ == '__main__':
     cli()
