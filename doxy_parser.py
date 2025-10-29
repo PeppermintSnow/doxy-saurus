@@ -16,9 +16,10 @@ def parser(docs):
 
     md_entries = []
     for filename, docs_list in docs.items():
-        # Store buffer as an array to avoid indentation quirks
-        md_list = []
         for doc_entry in docs_list:
+            # Store buffer as an array to avoid indentation quirks
+            md_list = []
+
             doc_dict = vars(doc_entry)
             declaration, prototype, name, brief_description, extended_description, \
             version_since, version_current, date, example, notes, see_notes, \
@@ -65,7 +66,7 @@ def parser(docs):
                     md_list.append("\n## Related Functions")
                     for related_doc in docs_list:
                         if related_doc.declaration == 'function':
-                            related_params_formatted = [f"- `{param_name}` ← `{param['dtype']}`  " 
+                            related_params_formatted = [f"`{param_name}` ← `{param['dtype']}`  " 
                                                         for param_name, param in related_doc.parameters.items()]
                             md_list.extend([f"- [**`{related_doc.name}`**]({related_doc.name}) → `{related_doc.return_type}`  ",
                                             f"_{related_doc.brief_description}_  ",
