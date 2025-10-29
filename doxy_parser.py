@@ -59,7 +59,7 @@ def parser(docs):
             if declaration == 'struct':
                 md_list.append("## Struct Members\n")
                 for member_name, member in members.items():
-                    md_list.extend([f"- **{member_name}** ({member['dtype']})  ",
+                    md_list.extend([f"- **`{member_name}`** ← `{member['dtype']}`  ",
                                    f"**→** _{member['description']}_"
                                    ])
                 if len(docs_list) > 1:
