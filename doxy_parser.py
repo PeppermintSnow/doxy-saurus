@@ -88,6 +88,12 @@ def parser(docs):
                     md_list.append(f"- {note}")
                 md_list.append("\n:::")
 
+            if len(see_notes) > 0:
+                md_list.append("\n:::tip see also\n")
+                for note in see_notes:
+                    md_list.append(f"- [{note}]({note.replace('()', '')})")
+                md_list.append("\n:::")
+            
             md_entries.append({'group': filename.replace('.h', ''),
                                'filename': f"{name}.md",
                                'content': '\n'.join(md_list)
