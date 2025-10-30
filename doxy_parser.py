@@ -59,7 +59,7 @@ def parser(docs):
             if declaration == 'struct':
                 md_list.append("## Struct Members\n")
                 for member_name, member in members.items():
-                    md_list.apppend(f"- `{member['dtype']} **{member_name}**` ← _{member['description']}_")
+                    md_list.append(f"- `{member['dtype']} **{member_name}**` ← _{member['description']}_")
                 if len(docs_list) > 1:
                     md_list.append("\n## Related Functions")
                     for related_doc in docs_list:
