@@ -62,7 +62,8 @@ def parser(docs):
                     md_list.append(f"- **`{member['dtype']} {member_name}`** ← _{member['description']}_")
                 if len(docs_list) > 1:
                     md_list.append("\n## Related Functions")
-                    for related_doc in docs_list:
+                    sorted_docs_list = sorted(docs_list, key=lambda doc: doc.name)
+                    for related_doc in sorted_docs_list:
                         if related_doc.declaration == 'function':
                             related_params_formatted = [f"`{param['dtype']} {param_name}` "
                                                         for param_name, param in related_doc.parameters.items()]
@@ -86,10 +87,13 @@ def parser(docs):
 
             if len(see_notes) > 0:
                 md_list.append("\n:::tip see also\n")
-                for note in see_notes:
-                    md_list.append(f"- [{note}]({note.replace('()', '')})")
+                for reference, note in see_notes.items():
+                    md_list.append(f"- [**`{reference}`**]({reference.replace('()', '')}) {note}")
                 md_list.append("\n:::")
             
+            if example:
+                md_list.append(f"## Example\n\n```c\n{example}\n```")
+
             md_entries.append({'group': filename.replace('.h', ''),
                                'filename': f"{name}.md",
                                'content': '\n'.join(md_list)
