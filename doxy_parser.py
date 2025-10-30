@@ -59,7 +59,7 @@ def parser(docs):
             if declaration == 'struct':
                 md_list.append("## Struct Members\n")
                 for member_name, member in members.items():
-                    md_list.append(f"- `{member['dtype']} **{member_name}**` ← _{member['description']}_")
+                    md_list.append(f"- **`{member['dtype']} {member_name}`** ← _{member['description']}_")
                 if len(docs_list) > 1:
                     md_list.append("\n## Related Functions")
                     for related_doc in docs_list:
@@ -68,11 +68,11 @@ def parser(docs):
                                                         for param_name, param in related_doc.parameters.items()]
                             md_list.extend([f"- [**`{related_doc.name}`**]({related_doc.name}) → `{related_doc.return_type}`  ",
                                             f"_{related_doc.brief_description}_  ",
-                                            f"**Params**:  \n{' '.join(related_params_formatted)}\n"])
+                                            f"**Params**: {' '.join(related_params_formatted)}\n"])
             elif declaration == 'function':
                 md_list.append("## Parameters\n")
                 for parameter_name, parameter in parameters.items():
-                    md_list.append(f"- `{parameter['dtype']} **{parameter_name}**` ← _{parameter['description']}_  ")
+                    md_list.append(f"- **`{parameter['dtype']} {parameter_name}**` ← _{parameter['description']}_  ")
                 md_list.extend(["## Return\n",
                                 f"- **`{return_type}`**",
                                 f"**→** _{return_description}_" if return_description else ""
