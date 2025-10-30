@@ -49,7 +49,7 @@ def extractor(input_dir, subdirs, extensions):
         with corresponding doxygen comments and metadata.
     """
 
-    valid_comment_tags = ['@brief', '@param', '@author', '@since', '@version', '@date', '@code', '@endcode', '@note', '@see']
+    valid_comment_tags = ['@brief', '@param', '@author', '@since', '@version', '@date', '@code', '@endcode', '@note', '@see', '@return', '@returns']
     dirs_re = [re.compile(f"{re.escape(input_dir)}/{re.escape(subdir)}") for subdir in subdirs]
     comment_re = re.compile(r"/\*\*(.*?)\*/", re.DOTALL)
     func_re = re.compile(r"([\w\s\*\_]+?)\s+(\**\w+)\s*\((.*?)\)\s*;", re.MULTILINE)
