@@ -72,7 +72,7 @@ def parser(docs):
             elif declaration == 'function':
                 md_list.append("## Parameters\n")
                 for parameter_name, parameter in parameters.items():
-                    md_list.append(f"- **`{parameter['dtype']} {parameter_name}**` ← _{parameter['description']}_  ")
+                    md_list.append(f"- **`{parameter['dtype']} {parameter_name}`** ← _{parameter['description']}_  ")
                 md_list.extend(["## Return\n",
                                 f"- **`{return_type}`**",
                                 f"**→** _{return_description}_" if return_description else ""
