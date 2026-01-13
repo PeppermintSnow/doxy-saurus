@@ -1,3 +1,5 @@
+from .category_page_generator import category_page_generator
+
 def parser(docs):
     """
     Parses a list of dictionaries from the doxy_extractor.extractor() 
@@ -16,6 +18,15 @@ def parser(docs):
 
     md_entries = []
     for filename, docs_list in docs.items():
+        if filename.endswith("_core.h"):
+            md_entries.append(category_page_generator(docs_list, "core", "Core Functions"))
+        elif filename.endswith("_utils.h"):
+            md_entries.append(category_page_generator(docs_list, "utils", "Utilities"))
+        elif filename.endswith("_ops.h"):
+            md_entries.append(category_page_generator(docs_list, "ops", "Operations"))
+        elif filename.endswith("_io.h"):
+            md_entries.append(category_page_generator(docs_list, "io", "I/O"))
+    
         for doc_entry in docs_list:
             # Store buffer as an array to avoid indentation quirks
             md_list = []
