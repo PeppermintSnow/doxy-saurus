@@ -4,6 +4,7 @@ import os
 
 @dataclass
 class DocEntry:
+    parent_dir: str = ''            # Name of parent directory
     declaration: str = ''           # Kind of documentation declaration
     prototype: str = ''             # The prototype declaration of the function/struct
     name: str = ''                  # Name of the function/struct
@@ -80,6 +81,7 @@ def extractor(input_dir, subdirs, extensions):
 
                 # Initialize entry
                 doc_entry = DocEntry()
+                doc_entry.parent_dir = pwd.split("/")[-1]
 
                 # Extract comment block fields
                 for comment_field in comment_fields:

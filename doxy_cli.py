@@ -24,9 +24,17 @@ def cli():
         group_dir = os.path.join(output_dir, entry['group'])
         if not os.path.exists(group_dir):
             os.makedirs(group_dir);
+
+        subgroup_dir = os.path.join(group_dir, entry['subgroup'])
+        if not os.path.exists(subgroup_dir):
+            os.makedirs(subgroup_dir);
         
-        with open(os.path.join(group_dir, entry['filename']), 'w') as f:
-            f.write(entry['content'])
+        if entry['filename'].lower() == f"{entry['group']}.md":
+            with open(os.path.join(group_dir, entry['filename']), 'w') as f:
+                f.write(entry['content'])
+        else:
+            with open(os.path.join(subgroup_dir, entry['filename']), 'w') as f:
+                f.write(entry['content'])
 
 if __name__ == '__main__':
     cli()

@@ -21,7 +21,7 @@ def parser(docs):
             md_list = []
 
             doc_dict = vars(doc_entry)
-            declaration, prototype, name, brief_description, extended_description, \
+            parent_dir, declaration, prototype, name, brief_description, extended_description, \
             version_since, version_current, date, example, notes, see_notes, \
             return_type, return_description, parameters, members, authors \
             = [doc_dict[key] for key in doc_dict.keys()]
@@ -94,7 +94,8 @@ def parser(docs):
             if example:
                 md_list.append(f"## Example\n\n```c\n{example}\n```")
 
-            md_entries.append({'group': filename.replace('.h', ''),
+            md_entries.append({'group': parent_dir, 
+                               'subgroup': filename.split("_")[-1].replace('.h', ''),
                                'filename': f"{name}.md",
                                'content': '\n'.join(md_list)
                                })
