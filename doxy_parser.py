@@ -18,13 +18,13 @@ def parser(docs):
 
     md_entries = []
     for filename, docs_list in docs.items():
-        if filename.endswith("_core.h"):
+        if filename == "core.h":
             md_entries.append(category_page_generator(docs_list, "core", "Core Functions"))
-        elif filename.endswith("_utils.h"):
+        elif filename == "utils.h":
             md_entries.append(category_page_generator(docs_list, "utils", "Utilities"))
-        elif filename.endswith("_ops.h"):
+        elif filename == "ops.h":
             md_entries.append(category_page_generator(docs_list, "ops", "Operations"))
-        elif filename.endswith("_io.h"):
+        elif filename == "io.h":
             md_entries.append(category_page_generator(docs_list, "io", "I/O"))
     
         for doc_entry in docs_list:
