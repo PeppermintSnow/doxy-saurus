@@ -191,8 +191,8 @@ fn parse_enum_sig(sig: &str, r#enum: &mut EnumItem) {
             }
         }
 
-        if line.contains("/**<") {
-            if let Some((dec, doc)) = line.rsplit_once("/**< ") {
+        if line.contains("/**\\<") {
+            if let Some((dec, doc)) = line.rsplit_once("/**\\<") {
                 let dec = dec.replace(",", "");
                 let dec = dec.trim();
                 let doc = doc[0..doc.len() - 2].trim();
@@ -200,10 +200,10 @@ fn parse_enum_sig(sig: &str, r#enum: &mut EnumItem) {
                 let identifier: String;
                 let value: String;
                 if let Some((name, val)) = dec.split_once("=") {
-                    identifier = name.to_string();
+                    identifier = name.trim().to_string();
                     value = val.trim().to_string();
                 } else {
-                    identifier = dec.to_string();
+                    identifier = dec.trim().to_string();
                     value = member_index.to_string();
                 }
 
@@ -241,8 +241,8 @@ fn parse_struct_sig(sig: &str, r#struct: &mut StructItem) {
             }
         }
 
-        if line.contains("/**<") {
-            if let Some((dec, desc)) = line.rsplit_once("/**< ") {
+        if line.contains("/**\\<") {
+            if let Some((dec, desc)) = line.rsplit_once("/**\\< ") {
                 let dec = dec.replace(",", "");
                 let dec = dec.trim();
                 let desc = desc[0..desc.len() - 2].trim().to_string();

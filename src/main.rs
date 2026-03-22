@@ -24,28 +24,24 @@ fn main() -> io::Result<()> {
     get_headers(libpath, &mut headers)?;
 
     for header in headers {
-        let mut module = String::new();
-        let mut submodule = String::new();
+        let mut path_str = String::new();
 
         if let Some(str) = header.to_str() {
-            if let Some((rest, filename)) = str.rsplit_once('/') {
-                if let Some((_, parent)) = rest.rsplit_once('/') {
-                    module = filename.replace(".h", "").to_string();
-                    submodule = parent.to_string();
-                }
+            if let Some((_, filename)) = str.rsplit_once("include/") {
+                path_str = filename.replace(".h", "").to_string();
             }
         }
 
-        let dir = outpath.join(submodule).join(module);
-        fs::create_dir_all(&dir)?;
+        let path = outpath.join(path_str);
+        fs::create_dir_all(&path)?;
 
         let doc_blocks = get_doc_blocks(&header)?;
         for block in doc_blocks {
             if let Some(doc_item) = parse_doc_block(&block) {
                 match doc_item {
-                    DocItem::Enum(item) => write_enum(item, &dir)?,
-                    DocItem::Struct(item) => write_struct(item, &dir)?,
-                    DocItem::Function(item) => write_func(item, &dir)?
+                    DocItem::Enum(item) => write_enum(item, &path)?,
+                    DocItem::Struct(item) => write_struct(item, &path)?,
+                    DocItem::Function(item) => write_func(item, &path)?
                 }
             }
         }

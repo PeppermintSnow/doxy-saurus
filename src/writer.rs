@@ -38,10 +38,19 @@ fn write_meta_header(meta: &DocMeta, buf: &mut String) {
         }
     }
 
+    let sidebar_position = if meta.signature.starts_with("typedef struct") {
+        1
+    } else if meta.signature.starts_with("typedef enum") {
+        2
+    } else {
+        3
+    };
+
     buf.extend([
         "---\n",
         &format!("title: \"{}\"\n", &title),
         &format!("description: \"{}\"\n", &full_desc.trim()),
+        &format!("sidebar_position: \"{}\"\n", &sidebar_position.to_string()),
         &format!("tags: [{}]\n", &tags),
         &format!("keywords: [{}]\n", &keywords),
         "last_update:\n",
@@ -128,7 +137,7 @@ pub fn write_enum(item: EnumItem, dir: &PathBuf) -> io::Result<()> {
     buf.push_str("## Members\n\n");
     for member in item.members {
         buf.push_str(&format!(
-            "- **`{}`**: {} ← _{}_  \n",
+            "- **`{} = {}`** ← _{}_  \n",
             member.name,
             member.value,
             member.desc
