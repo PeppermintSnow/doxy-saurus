@@ -122,6 +122,11 @@ pub fn write_func(item: FunctionItem, dir: &PathBuf) -> io::Result<()> {
         ));
     }
 
+    buf.extend([
+        "## Return\n\n",
+        &format!("- **`{}`** → {}", item.r#return.r#type, item.r#return.desc)
+    ]);
+
     write_meta_footer(&item.meta, &mut buf);
 
     write_md(&buf, dir, &item.meta.identifier.alias)?;

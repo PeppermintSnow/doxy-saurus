@@ -4,7 +4,7 @@ mod scanner;
 mod parser;
 mod writer;
 
-use std::{fs::{self, File}, io::{self}, path::{Path, PathBuf}};
+use std::{fs::{self}, io::{self}, path::{Path, PathBuf}};
 use crate::{
 	discovery::get_headers, parser::parse_doc_block, scanner::get_doc_blocks, types::DocItem, writer::{write_enum, write_func, write_struct}
 };
