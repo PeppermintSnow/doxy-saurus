@@ -243,7 +243,7 @@ fn parse_struct_sig(sig: &str, r#struct: &mut StructItem) {
 
         if line.contains("/**\\<") {
             if let Some((dec, desc)) = line.rsplit_once("/**\\< ") {
-                let dec = dec.replace(",", "");
+                let dec = dec.replace(",", "").replace(";", "");
                 let dec = dec.trim();
                 let desc = desc[0..desc.len() - 2].trim().to_string();
 
